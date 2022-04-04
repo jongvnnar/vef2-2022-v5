@@ -1,6 +1,6 @@
 import { Button } from "../Button/Button";
 import styles from "../../styles/Form.module.scss";
-export function Form({ children, buttonName, onSubmit }) {
+export function Form({ children, buttonName, onSubmit, loading = false }) {
   return (
     <form
       onSubmit={(e) => {
@@ -10,7 +10,7 @@ export function Form({ children, buttonName, onSubmit }) {
       className={styles.form}
     >
       {children}
-      <Button>{buttonName}</Button>
+      <Button loading={loading}>{buttonName}</Button>
     </form>
   );
 }

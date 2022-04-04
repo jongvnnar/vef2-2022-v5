@@ -1,11 +1,11 @@
 import ReactLoading from "react-loading";
 import styles from "../../styles/Loading.module.scss";
-export function Loading() {
+export function Loading({ color = "#666" }) {
   return (
     <ReactLoading
       className={styles.loading}
       type={"spokes"}
-      color={"#666"}
+      color={color}
       height="10%"
       width="10%"
     />

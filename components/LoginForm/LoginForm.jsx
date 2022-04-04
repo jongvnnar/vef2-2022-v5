@@ -38,7 +38,7 @@ export function LoginForm() {
   };
 
   return (
-    <Form onSubmit={onSubmit} buttonName="Innskrá">
+    <Form onSubmit={onSubmit} buttonName="Innskrá" loading={fetching}>
       <Input
         label="Notendanafn"
         name="username"
@@ -56,6 +56,7 @@ export function LoginForm() {
         isError={!!passError}
         error={passError}
       />
+      {message && <p>{message}</p>}
     </Form>
   );
 }

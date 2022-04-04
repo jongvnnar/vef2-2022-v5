@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "../Button/Button";
 export function Footer() {
   const { user, logoutUser, authenticated } = useContext(AuthContext);
-  if (authenticated) {
+  if (authenticated && user) {
     return (
       <>
         <Link href="/">

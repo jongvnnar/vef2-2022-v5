@@ -16,14 +16,18 @@ export function AuthWrapper({ children }) {
   const [token, setToken] = useState(null);
   const [message, setMessage] = useState("");
 
+  // Using useEffect since I can't use localStorage until window loads
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user") || null));
     setToken(JSON.parse(localStorage.getItem("token") || null));
     setFetching(false);
   }, []);
+
+  // authenticated might be a useless variable, set here for simplicity.
   useEffect(() => {
     setAuthenticated(!!user);
   }, [user]);
+
   const loginUser = async (username, password) => {
     setFetching(true);
     let login;
@@ -40,16 +44,15 @@ export function AuthWrapper({ children }) {
     }
     if (!login.user || !login.token) {
       setMessage(login.error);
-      setFetching(false);
     }
     if (login.user && login.token) {
+      setMessage("");
       setToken(login.token);
       localStorage.setItem("token", JSON.stringify(login.token));
       setUser(login.user);
       localStorage.setItem("user", JSON.stringify(login.user));
-      setAuthenticated(true);
-      setFetching(false);
     }
+    setFetching(false);
   };
 
   const logoutUser = async () => {
@@ -57,7 +60,6 @@ export function AuthWrapper({ children }) {
     setToken(null);
     localStorage.removeItem("user");
     setUser(null);
-    setAuthenticated(false);
   };
 
   return (

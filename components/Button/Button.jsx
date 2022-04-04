@@ -1,11 +1,13 @@
 import styles from "../../styles/Button.module.scss";
 import classNames from "classnames";
-export function Button({ onClick, children, margin = false, large = false }) {
-  const classes = [
-    styles.button,
-    margin ? styles["button--margin"] : "",
-    large ? styles["button--large"] : "",
-  ];
+import { Loading } from "../Loading/Loading";
+export function Button({
+  onClick,
+  children,
+  margin = false,
+  large = false,
+  loading = false,
+}) {
   return (
     <button
       className={classNames(
@@ -15,7 +17,7 @@ export function Button({ onClick, children, margin = false, large = false }) {
       )}
       onClick={onClick}
     >
-      {children}
+      {loading ? "loading..." : children}
     </button>
   );
 }
