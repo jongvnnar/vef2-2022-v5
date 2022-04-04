@@ -1,5 +1,5 @@
 import { LoginForm } from "../components/LoginForm/LoginForm";
 import { Link } from "next/link";
 export default function LoginPage() {
-  return <p>login!</p>;
+  return <LoginForm />;
 }

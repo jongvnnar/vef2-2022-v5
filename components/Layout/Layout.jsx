@@ -1,11 +1,14 @@
 import styles from "../../styles/Layout.module.scss";
-import Head from "next/head";
-
-export function Layout({ footer, children }) {
+import { Header } from "../Header/Header";
+import { Footer } from "../Footer/Footer";
+export function Layout({ title, children }) {
   return (
     <div className={styles.layout}>
+      <Header title={title} />
       <main>{children}</main>
-      <footer className={styles.layout__footer}>{footer}</footer>
+      <footer className={styles.layout__footer}>
+        <Footer />
+      </footer>
     </div>
   );
 }

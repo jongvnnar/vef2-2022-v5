@@ -1,11 +1,13 @@
 import "../styles/globals.scss";
 import { Layout } from "../components/Layout/Layout";
-import { Login } from "../components/Login/Login";
+import { AuthWrapper } from "../components/Auth/Auth";
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout title="Viðburðasíðan" footer={<Login />}>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthWrapper>
+      <Layout title={Component.title}>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthWrapper>
   );
 }
 
