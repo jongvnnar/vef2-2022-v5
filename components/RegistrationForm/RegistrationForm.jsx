@@ -1,6 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-import { usePostRegistration } from "../../lib/registration-hooks";
+import {
+  useDeleteRegistration,
+  usePostRegistration,
+} from "../../lib/registration-hooks";
 import { AuthContext } from "../Auth/Auth";
+import { Button } from "../Button/Button";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 
@@ -8,21 +12,33 @@ export function RegistrationForm({ registrations, setRegistrations, eventId }) {
   const [comment, setComment] = useState("");
   const [validationError, setValidationError] = useState("");
   const { authenticated, user } = useContext(AuthContext);
+
   const {
-    loading,
-    success,
-    error,
+    loading: postLoading,
+    success: postSuccess,
+    error: postError,
     data,
     trigger: postRegistration,
   } = usePostRegistration(eventId);
+  const {
+    loading: deleteLoading,
+    success: deleteSuccess,
+    error: deleteError,
+    trigger: deleteRegistration,
+  } = useDeleteRegistration(eventId);
+
   useEffect(() => {
-    console.log(success);
-    console.log(data);
-    if (success && data) {
+    if (postSuccess && data) {
       setRegistrations([...registrations, { ...data, name: user.name }]);
     }
-  }, [success, data]);
-  usePostRegistration(eventId);
+  }, [postSuccess, data]);
+
+  useEffect(() => {
+    if (deleteSuccess) {
+      setRegistrations(registrations.filter((val) => val.name !== user.name));
+    }
+  }, [deleteSuccess]);
+
   // Don't show form if user not logged in.
   if (!authenticated) {
     return <></>;
@@ -39,7 +55,15 @@ export function RegistrationForm({ registrations, setRegistrations, eventId }) {
   };
 
   if (isRegistered()) {
-    return <p>Þú hefur skráð þig á þennan viðburð</p>;
+    return (
+      <div>
+        <p>Þú hefur skráð þig á þennan viðburð</p>
+        <Button loading={deleteLoading} onClick={deleteRegistration}>
+          Skrá af viðburði
+        </Button>
+        {deleteError && <p>{deleteError}</p>}
+      </div>
+    );
   }
 
   // VALIDATION
@@ -59,18 +83,19 @@ export function RegistrationForm({ registrations, setRegistrations, eventId }) {
     if (!commentValid) {
       return;
     }
+    setComment("");
     await postRegistration({ comment });
   };
 
   return (
-    <Form buttonName="Skrá mig" onSubmit={onSubmit} loading={loading}>
+    <Form buttonName="Skrá mig" onSubmit={onSubmit} loading={postLoading}>
       <Input
         label="Athugasemd:"
         name="comment"
         value={comment}
         setValue={setComment}
-        isError={!!error || !!validationError}
-        error={validationError || error}
+        isError={!!postError || !!validationError}
+        error={validationError || postError}
         textarea
       />
     </Form>

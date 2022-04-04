@@ -10,6 +10,7 @@ export function Button({
 }) {
   return (
     <button
+      disabled={loading}
       className={classNames(
         styles.button,
         margin && styles["button--margin"],
