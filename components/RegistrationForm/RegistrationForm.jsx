@@ -1,15 +1,30 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { usePostRegistration } from "../../lib/registration-hooks";
 import { AuthContext } from "../Auth/Auth";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 
-export function RegistrationForm({ registrations, setRegistrations }) {
+export function RegistrationForm({ registrations, setRegistrations, eventId }) {
   const [comment, setComment] = useState("");
-  const [error, setError] = useState("");
-  const { user } = useContext(AuthContext);
-
+  const [validationError, setValidationError] = useState("");
+  const { authenticated, user } = useContext(AuthContext);
+  const {
+    loading,
+    success,
+    error,
+    data,
+    trigger: postRegistration,
+  } = usePostRegistration(eventId);
+  useEffect(() => {
+    console.log(success);
+    console.log(data);
+    if (success && data) {
+      setRegistrations([...registrations, { ...data, name: user.name }]);
+    }
+  }, [success, data]);
+  usePostRegistration(eventId);
   // Don't show form if user not logged in.
-  if (!user) {
+  if (!authenticated) {
     return <></>;
   }
 
@@ -30,32 +45,33 @@ export function RegistrationForm({ registrations, setRegistrations }) {
   // VALIDATION
   const validateSubmission = (input) => {
     if (input.length > 400) {
-      setError("Athugasemd má að hámarki vera 400 stafir");
+      setValidationError("Athugasemd má að hámarki vera 400 stafir");
       return false;
     } else {
-      setError("");
+      setValidationError("");
       return true;
     }
   };
 
   // Add to registrations on submit if comment valid.
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const commentValid = validateSubmission(comment);
     if (!commentValid) {
       return;
     }
-    setRegistrations([...registrations, { name: user, comment }]);
+    await postRegistration({ comment });
   };
 
   return (
-    <Form buttonName="Skrá mig" onSubmit={onSubmit}>
+    <Form buttonName="Skrá mig" onSubmit={onSubmit} loading={loading}>
       <Input
         label="Athugasemd:"
         name="comment"
         value={comment}
         setValue={setComment}
-        isError={!!error}
-        error={error}
+        isError={!!error || !!validationError}
+        error={validationError || error}
+        textarea
       />
     </Form>
   );

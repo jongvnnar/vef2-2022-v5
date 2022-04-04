@@ -5,7 +5,7 @@ export const AuthContext = createContext({
   user: null,
   token: null,
   message: "",
-  loginUser: () => {},
+  loginUser: async () => {},
   logoutUser: () => {},
 });
 
@@ -29,6 +29,7 @@ export function AuthWrapper({ children }) {
   }, [user]);
 
   const loginUser = async (username, password) => {
+    let success = false;
     setFetching(true);
     let login;
     try {
@@ -51,8 +52,10 @@ export function AuthWrapper({ children }) {
       localStorage.setItem("token", JSON.stringify(login.token));
       setUser(login.user);
       localStorage.setItem("user", JSON.stringify(login.user));
+      success = true;
     }
     setFetching(false);
+    return success;
   };
 
   const logoutUser = async () => {

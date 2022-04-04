@@ -17,7 +17,7 @@ export function Button({
       )}
       onClick={onClick}
     >
-      {loading ? "loading..." : children}
+      {loading ? <Loading color="#000" size="5%" /> : children}
     </button>
   );
 }

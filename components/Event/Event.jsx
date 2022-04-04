@@ -48,6 +48,7 @@ export function Event({ event }) {
       <RegistrationForm
         registrations={registrations}
         setRegistrations={setRegistrations}
+        eventId={event.id}
       />
       <Link href="/">
         <a>Til baka</a>
