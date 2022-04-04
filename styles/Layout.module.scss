@@ -1,0 +1,17 @@
+.layout {
+  &__header {
+    padding: 0 0;
+  }
+
+  &__main {
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+  }
+
+  &__footer {
+    padding: 1rem;
+    border-top: 1px solid var(--color-accent-dark);
+    display: flex;
+    flex-direction: column;
+  }
+}

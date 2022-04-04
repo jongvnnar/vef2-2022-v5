@@ -1,0 +1,20 @@
+.button {
+  background-color: var(--color-accent);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  max-width: 300px;
+  padding: 0.5rem;
+  transition: background-color ease-in 200ms, color ease-in 200ms;
+  width: 100%;
+  &:hover {
+    background-color: var(--color-accent-dark);
+    cursor: pointer;
+    color: var(--color-white);
+  }
+  &--margin {
+    margin-top: 1rem;
+  }
+  &--large {
+    font-size: 2rem;
+  }
+}

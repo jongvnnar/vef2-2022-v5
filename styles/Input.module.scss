@@ -1,0 +1,39 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.field label {
+  font-size: 1rem;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid var(--color-accent);
+  border-radius: 3px;
+  flex: 1;
+  padding: 8px;
+  width: 100%;
+}
+
+.field--textarea {
+  align-items: flex-start;
+}
+
+.field textarea {
+  flex: 1;
+  min-height: 6rem;
+}
+
+.field--invalid input,
+.field--invalid textarea {
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent);
+}
+
+.error__text {
+  color: var(--color-accent-dark);
+  font-size: 0.9rem;
+}

@@ -1,0 +1,27 @@
+.event {
+  &__info,
+  &__registered {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+  }
+
+  &__registeredItem {
+    margin-bottom: 1rem;
+  }
+
+  &__registeredName {
+    font-weight: bold;
+  }
+
+  &__registeredComment {
+    display: block;
+    font-style: italic;
+  }
+}
