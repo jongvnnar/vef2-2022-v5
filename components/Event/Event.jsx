@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import styles from "../../styles/Events.module.scss";
+import styles from "../../styles/Event.module.scss";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 
 export function Event({ event }) {
@@ -16,7 +16,7 @@ export function Event({ event }) {
   return (
     <section>
       <div className={styles.event__info}>
-        <h2 className={styles.event__title}>{event.name}</h2>
+        <h1 className={styles.event__title}>{event.name}</h1>
         <p className={styles.event__subtitle}>{event.description}</p>
       </div>
 
@@ -49,8 +49,8 @@ export function Event({ event }) {
         registrations={registrations}
         setRegistrations={setRegistrations}
       />
-      <Link className="link" to="/">
-        Til baka
+      <Link href="/">
+        <a>Til baka</a>
       </Link>
     </section>
   );

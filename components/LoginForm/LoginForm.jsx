@@ -7,6 +7,7 @@ export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { message, loginUser, fetching } = useContext(AuthContext);
+
   // VALIDATION //
   const [nameError, setNameError] = useState("");
   const [passError, setPassError] = useState("");

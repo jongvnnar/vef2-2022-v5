@@ -1,16 +1,18 @@
 import Head from "next/head";
 
-export function Header({ title = "Viðburðasíðan" }) {
+export function Header({ title = "" }) {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{title || "Viðburðasíðan"}</title>
         <meta name="description" content="Verkefni í vefforritun 2, 2022" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <h1>{title}</h1>
-      </header>
+      {title && (
+        <header>
+          <h1>{title}</h1>
+        </header>
+      )}
     </>
   );
 }

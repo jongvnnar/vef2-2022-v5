@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../Auth/Auth";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 
@@ -16,7 +16,7 @@ export function RegistrationForm({ registrations, setRegistrations }) {
   // Hide registration form if already registered
   const isRegistered = () => {
     for (const entry of registrations) {
-      if (entry.name === user) {
+      if (entry.name === user?.name) {
         return true;
       }
     }
@@ -54,7 +54,6 @@ export function RegistrationForm({ registrations, setRegistrations }) {
         name="comment"
         value={comment}
         setValue={setComment}
-        textarea
         isError={!!error}
         error={error}
       />
