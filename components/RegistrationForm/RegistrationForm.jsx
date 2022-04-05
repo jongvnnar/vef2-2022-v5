@@ -31,13 +31,13 @@ export function RegistrationForm({ registrations, setRegistrations, eventId }) {
     if (postSuccess && data) {
       setRegistrations([...registrations, { ...data, name: user.name }]);
     }
-  }, [postSuccess, data, registrations, setRegistrations]);
+  }, [postSuccess, data, registrations, setRegistrations, user, user.name]);
 
   useEffect(() => {
     if (deleteSuccess) {
       setRegistrations(registrations.filter((val) => val.name !== user.name));
     }
-  }, [deleteSuccess, registrations, setRegistrations]);
+  }, [deleteSuccess, registrations, setRegistrations, user, user.name]);
 
   // Don't show form if user not logged in.
   if (!authenticated) {
