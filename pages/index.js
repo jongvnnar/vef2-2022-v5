@@ -1,4 +1,3 @@
-import { Head } from "next/document";
 import { Events } from "../components/Events/Events";
 
 Index.title = "Viðburðir á næstunni";
